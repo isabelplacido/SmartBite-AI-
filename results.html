@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartBite AI – Results & Takeaways</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>SmartBite AI</h1>
+    <nav>
+        <a href="index.html">Problem & Motivation</a>
+        <a href="approach.html">Technical Approach</a>
+        <a href="results.html">Results & Takeaways</a>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Training Curves</h2>
+        <p>
+            These plots summarize how the model learned over time on the training and validation sets.
+        </p>
+        <figure>
+            <img src="images/accuracy_curve.png" alt="Training and validation accuracy over epochs">
+            <figcaption>Training vs. validation accuracy.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/loss_curve.png" alt="Training and validation loss over epochs">
+            <figcaption>Training vs. validation loss.</figcaption>
+        </figure>
+    </section>
+
+    <section>
+        <h2>Model Performance</h2>
+        <p>
+            To understand how well AlexNet distinguishes between classes, I looked at a confusion matrix
+            and sample predictions.
+        </p>
+        <figure>
+            <img src="images/confusion_matrix.png" alt="Confusion matrix for SmartBite AI classifier">
+            <figcaption>Confusion matrix on the validation or test set.</figcaption>
+        </figure>
+        <p>
+            (Here you can briefly describe accuracy, which classes are easiest/hardest, and any patterns you saw.)
+        </p>
+    </section>
+
+    <section>
+        <h2>Key Takeaways</h2>
+        <ul>
+            <li>With a small dataset, AlexNet can still learn useful patterns, but performance is limited.</li>
+            <li>Some classes are visually similar, which leads to confusion (e.g., similar packaging or colors).</li>
+            <li>More diverse, higher-quality data would likely improve generalization.</li>
+            <li>
+                This project shows the potential of using image-based models as a layer of “food awareness”
+                but it is not ready for real-world medical or nutrition decisions.
+            </li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>SmartBite AI · Project Results</p>
+</footer>
+</body>
+</html>
