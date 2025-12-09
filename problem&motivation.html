@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartBite AI – Problem & Motivation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>SmartBite AI</h1>
+    <p>Food Awareness & Chronic Disease Prevention with Deep Learning</p>
+    <nav>
+        <a href="index.html">Problem & Motivation</a>
+        <a href="approach.html">Technical Approach</a>
+        <a href="results.html">Results & Takeaways</a>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>The Problem</h2>
+        <p>
+            Chronic diseases like diabetes, heart disease, and hypertension are tightly linked to what people
+            eat every day. A lot of products that look harmless on the shelf are actually ultra-processed and
+            loaded with added sugar, salt, and unhealthy fats. Nutrition labels are confusing and time-consuming
+            to read, so most people just guess and move on.
+        </p>
+        <p>
+            These small, fast decisions in the grocery aisle, at vending machines, or on delivery apps slowly
+            add up and increase long-term health risk, especially for young adults who are just building their
+            habits.
+        </p>
+    </section>
+
+    <section>
+        <h2>Motivation</h2>
+        <p>
+            Expecting everyone to count calories, track macros, and analyze ingredients for every meal is
+            unrealistic. What would help more is a simple signal about food quality that fits into the way
+            people already behave: scrolling, snapping pictures, and tapping once for feedback.
+        </p>
+        <p>
+            The idea behind SmartBite AI is to explore whether computer vision can provide that signal.
+            Instead of manually logging foods, a user could take a quick photo of a product and get a
+            coarse judgment of how health-supporting it is.
+        </p>
+    </section>
+
+    <section>
+        <h2>Project Idea</h2>
+        <p>
+            This project builds a small image classifier that groups food items into three broad categories:
+        </p>
+        <ul>
+            <li><strong>Fresh</strong> – foods that are closer to whole or minimally processed items.</li>
+            <li><strong>Mixed</strong> – foods that combine fresh and processed elements or are more neutral.</li>
+            <li><strong>Ultraprocessed</strong> – highly processed snacks or products with many added ingredients.</li>
+        </ul>
+        <p>
+            The goal is not to give medical advice or exact nutrition scores. Instead, this is a proof-of-concept:
+            can a deep learning model like AlexNet (and a more modern ResNet18) learn useful visual patterns from
+            a small custom dataset and separate these three categories at all?
+        </p>
+    </section>
+
+    <section>
+        <h2>Goals of This Project</h2>
+        <ul>
+            <li>Prototype an image-based “food awareness” tool with three health-related classes.</li>
+            <li>Adapt a pretrained AlexNet model to a new dataset of food images.</li>
+            <li>Run controlled experiments with batch size, learning rate, augmentation, and architecture.</li>
+            <li>Evaluate performance limits on a small dataset and reflect on what would be needed in real life.</li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>SmartBite AI · Course Project</p>
+</footer>
+</body>
+</html>
