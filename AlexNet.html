@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartBite AI – Technical Approach</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>SmartBite AI</h1>
+    <nav>
+        <a href="index.html">Problem & Motivation</a>
+        <a href="approach.html">Technical Approach</a>
+        <a href="results.html">Results & Takeaways</a>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Dataset & Classes</h2>
+        <p>
+            I created a small custom dataset of food-related images and labeled each image into one of
+            three classes:
+        </p>
+        <ul>
+            <li><strong>Fresh</strong></li>
+            <li><strong>Mixed</strong></li>
+            <li><strong>Ultraprocessed</strong></li>
+        </ul>
+        <p>
+            Images include product photos and food items that roughly represent these three levels of
+            processing. The dataset is intentionally small, so the experiments are about understanding
+            model behavior rather than building a production-quality classifier.
+        </p>
+    </section>
+
+    <section>
+        <h2>Preprocessing & Data Pipeline</h2>
+        <p>
+            All images go through the same preprocessing steps before they are fed into the model:
+        </p>
+        <ul>
+            <li>Resize to <strong>224 × 224</strong> RGB to match common ImageNet-based models.</li>
+            <li>Convert to tensors and normalize using standard ImageNet mean and standard deviation.</li>
+            <li>Split into separate training and validation sets to monitor generalization.</li>
+        </ul>
+        <p>
+            I also experimented with simple data augmentation (e.g., random flips and transforms)
+            to see whether it helped or hurt performance on this small dataset.
+        </p>
+    </section>
+
+    <section>
+        <h2>AlexNet Architecture Adaptation</h2>
+        <p>
+            As a baseline, I used a pretrained <strong>AlexNet</strong> model, which was originally
+            trained on ImageNet. AlexNet includes:
+        </p>
+        <ul>
+            <li>Convolutional layers that learn low- and mid-level visual features.</li>
+            <li>Pooling layers that downsample feature maps.</li>
+            <li>Fully connected layers that convert features into class scores.</li>
+        </ul>
+        <p>
+            To adapt AlexNet to SmartBite AI:
+        </p>
+        <ul>
+            <li>I reused the pretrained convolutional backbone to keep its general visual knowledge.</li>
+            <li>I replaced the final classification layer with a new layer that outputs
+                <strong>3 logits</strong>, one for each class: fresh, mixed, ultraprocessed.</li>
+            <li>The logits are converted to probabilities with a softmax during evaluation.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Training Setup</h2>
+        <p>
+            All models were trained in Google Colab. The main training choices were:
+        </p>
+        <ul>
+            <li><strong>Loss function:</strong> Cross-Entropy Loss for 3-way classification.</li>
+            <li><strong>Optimizers:</strong> standard deep learning optimizer (e.g., Adam or SGD with momentum).</li>
+            <li><strong>Batch sizes tested:</strong> 16 and 64.</li>
+            <li><strong>Learning rates tested:</strong> 1e-3 and 1e-4.</li>
+            <li><strong>Epochs:</strong> a fixed number of passes over the data for each configuration.</li>
+        </ul>
+        <p>
+            For each run, I tracked training and validation accuracy and loss. The final metrics used
+            in the results page are taken from the best-performing checkpoints in each experiment.
+        </p>
+    </section>
+
+    <section>
+        <h2>Architecture Comparison</h2>
+        <p>
+            In addition to AlexNet, I also tested a more modern CNN:
+        </p>
+        <ul>
+            <li><strong>AlexNet</strong> – classic CNN baseline.</li>
+            <li><strong>ResNet18</strong> – deeper residual network with skip connections.</li>
+        </ul>
+        <p>
+            Both models were adapted to output the same three classes (fresh, mixed, ultraprocessed)
+            so that their accuracies could be compared directly under similar conditions.
+        </p>
+    </section>
+
+    <section>
+        <h2>Structured Experiments</h2>
+        <p>
+            To understand how different design choices affect performance on this dataset, I ran four
+            sets of experiments:
+        </p>
+        <ul>
+            <li><strong>Batch size sweep:</strong> compare batch size 16 vs 64.</li>
+            <li><strong>Learning rate sweep:</strong> compare 1e-3 vs 1e-4.</li>
+            <li><strong>Augmentation vs no augmentation:</strong> with and without basic transforms.</li>
+            <li><strong>Architecture comparison:</strong> AlexNet vs ResNet18.</li>
+        </ul>
+        <p>
+            The detailed numerical results and their interpretation are summarized on the
+            <a href="results.html">Results & Takeaways</a> page.
+        </p>
+    </section>
+</main>
+
+<footer>
+    <p>SmartBite AI · AlexNet & ResNet18 Experiments</p>
+</footer>
+</body>
+</html>
