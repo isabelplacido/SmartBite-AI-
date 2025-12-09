@@ -16,139 +16,128 @@
 </header>
 
 <main>
+    <!-- VISUALIZATIONS -->
     <section>
-        <h2>Training Curves & Visualizations</h2>
+        <h2>Visualizations</h2>
         <p>
-            I generated plots in Google Colab to visualize how the models learned over time, including
-            training and validation accuracy and loss curves. These plots show whether the model is still
-            improving, has plateaued, or is starting to overfit.
+            The figures below summarize how the models trained and how different experiment
+            settings affected performance on the three classes (fresh, mixed, ultraprocessed).
         </p>
 
         <figure>
-            <img src="images/accuracy_curve.png" alt="Training and validation accuracy over epochs">
-            <figcaption>Training vs validation accuracy for a representative run.</figcaption>
+            <img src="epoch.png" alt="Epoch progression over training steps">
+            <figcaption>
+                Overall training progress in terms of epoch vs step for the AlexNet baseline.
+            </figcaption>
         </figure>
 
         <figure>
-            <img src="images/loss_curve.png" alt="Training and validation loss over epochs">
-            <figcaption>Training vs validation loss for the same run.</figcaption>
+            <img src="best_validation_accuracy.png"
+                 alt="Bar chart of best validation accuracy for each experiment run">
+            <figcaption>
+                Best validation accuracy achieved by each configuration:
+                different batch sizes, learning rates, augmentation settings, and architectures
+                (AlexNet vs ResNet18).
+            </figcaption>
         </figure>
-
-        <p>
-            In the better runs, training loss decreases and validation accuracy increases steadily,
-            eventually flattening out as the model has extracted most of the useful signal available
-            in this small dataset.
-        </p>
-    </section>
-
-    <section>
-        <h2>Hyperparameter Experiments</h2>
-        <h3>Batch Size</h3>
-        <p>
-            I compared two batch sizes:
-        </p>
-        <ul>
-            <li><strong>Batch size 16:</strong> accuracy ≈ <strong>30.4%</strong></li>
-            <li><strong>Batch size 64:</strong> accuracy ≈ <strong>69.6%</strong></li>
-        </ul>
-        <p>
-            On this dataset, the larger batch size (64) clearly worked better, giving more stable gradients
-            and much higher accuracy.
-        </p>
-
-        <h3>Learning Rate</h3>
-        <p>
-            I also tested two learning rates:
-        </p>
-        <ul>
-            <li><strong>Learning rate 1e-3:</strong> accuracy ≈ <strong>73.9%</strong></li>
-            <li><strong>Learning rate 1e-4:</strong> accuracy ≈ <strong>82.6%</strong></li>
-        </ul>
-        <p>
-            The smaller learning rate of 1e-4 performed better here, likely because it allowed more stable
-            fine-tuning of the pretrained weights without overshooting good minima.
-        </p>
-
-        <h3>Data Augmentation</h3>
-        <p>
-            I tested simple augmentation versus no augmentation:
-        </p>
-        <ul>
-            <li><strong>No augmentation:</strong> accuracy ≈ <strong>73.9%</strong></li>
-            <li><strong>With augmentation:</strong> accuracy ≈ <strong>52.2%</strong></li>
-        </ul>
-        <p>
-            Surprisingly, the augmented model performed worse. On such a small dataset, the extra variation
-            may have made the learning problem harder instead of helping generalization.
-        </p>
-    </section>
-
-    <section>
-        <h2>Architecture Comparison</h2>
-        <p>
-            Finally, I compared two architectures adapted to the same three classes:
-        </p>
-        <ul>
-            <li><strong>AlexNet:</strong> accuracy ≈ <strong>60.9%</strong></li>
-            <li><strong>ResNet18:</strong> accuracy ≈ <strong>91.3%</strong></li>
-        </ul>
-        <p>
-            ResNet18 was a clear winner, reaching about 91.3% accuracy, while AlexNet topped out around 60.9%.
-            This gap suggests that the more modern residual architecture is much better at extracting useful
-            features even from a small dataset like this.
-        </p>
 
         <figure>
-            <img src="images/arch_barplot.png" alt="Bar plot comparing AlexNet and ResNet18 accuracy">
-            <figcaption>Example bar plot comparing AlexNet and ResNet18 (if generated in Colab).</figcaption>
+            <img src="confusion_matrixz_curve.png"
+                 alt="Multi-panel summary of metrics for each experiment">
+            <figcaption>
+                Multi-panel summary of metrics across runs. Each panel represents a specific
+                experiment setting and shows how its tracked metrics behaved.
+            </figcaption>
         </figure>
     </section>
 
+    <!-- NUMERICAL RESULTS -->
     <section>
-        <h2>Class-Level Behavior</h2>
+        <h2>Results</h2>
+
+        <h3>Batch Size Experiment</h3>
         <p>
-            I also examined a confusion matrix to see how the model behaves on each class:
+            I compared two batch sizes using otherwise similar settings:
+        </p>
+        <ul>
+            <li><strong>bs16:</strong> best validation accuracy ≈ <strong>30.4%</strong></li>
+            <li><strong>bs64:</strong> best validation accuracy ≈ <strong>69.6%</strong></li>
+        </ul>
+        <p>
+            A batch size of 64 performed much better, suggesting more stable gradients and better
+            use of the small dataset compared to a very small batch of 16.
         </p>
 
-        <figure>
-            <img src="images/confusion_matrix.png" alt="Confusion matrix for the three food classes">
-            <figcaption>Confusion matrix for fresh, mixed, and ultraprocessed classes.</figcaption>
-        </figure>
-
+        <h3>Learning Rate Experiment</h3>
         <p>
-            In general, the model tends to recognize clearly <strong>fresh</strong> and clearly
-            <strong>ultraprocessed</strong> items better than borderline <strong>mixed</strong> items.
-            This makes sense: mixed foods are visually in-between, and the boundaries between classes are
-            not perfectly defined.
+            I then varied the learning rate:
+        </p>
+        <ul>
+            <li><strong>lr = 1e-3:</strong> best validation accuracy ≈ <strong>73.9%</strong></li>
+            <li><strong>lr = 1e-4:</strong> best validation accuracy ≈ <strong>82.6%</strong></li>
+        </ul>
+        <p>
+            The smaller learning rate (1e-4) gave the best overall accuracy, likely because it allowed
+            smoother fine-tuning of the pretrained weights without overshooting.
+        </p>
+
+        <h3>Data Augmentation Experiment</h3>
+        <p>
+            I also compared runs with and without basic augmentation:
+        </p>
+        <ul>
+            <li><strong>No augmentation:</strong> best validation accuracy ≈ <strong>73.9%</strong></li>
+            <li><strong>With augmentation:</strong> best validation accuracy ≈ <strong>52.2%</strong></li>
+        </ul>
+        <p>
+            On this tiny dataset, augmentation actually hurt performance. The extra variation probably
+            made the task harder for the model instead of improving generalization.
+        </p>
+
+        <h3>Architecture Comparison</h3>
+        <p>
+            Finally, I compared AlexNet to a more modern residual network:
+        </p>
+        <ul>
+            <li><strong>AlexNet:</strong> best validation accuracy ≈ <strong>60.9%</strong></li>
+            <li><strong>ResNet18:</strong> best validation accuracy ≈ <strong>91.3%</strong></li>
+        </ul>
+        <p>
+            ResNet18 clearly outperformed AlexNet on this three-class food classification task. Even with
+            limited data, the residual architecture extracted better features and reached around 91.3%
+            validation accuracy.
         </p>
     </section>
 
+    <!-- TAKEAWAYS -->
     <section>
-        <h2>Limitations</h2>
+        <h2>Takeaways</h2>
         <ul>
-            <li>The dataset is small, so all metrics are based on limited evidence.</li>
-            <li>“Fresh”, “mixed”, and “ultraprocessed” are broad and somewhat subjective labels.</li>
-            <li>Single images cannot capture portion size, context, or overall diet quality.</li>
-            <li>The results may not generalize well to new foods or different lighting conditions.</li>
+            <li>
+                Deep learning models can learn meaningful patterns for distinguishing fresh, mixed,
+                and ultraprocessed foods even from a small custom dataset.
+            </li>
+            <li>
+                Hyperparameters matter: batch size 64 and learning rate 1e-4 significantly improved
+                performance compared to smaller batch size and a larger learning rate.
+            </li>
+            <li>
+                Simple data augmentation was not helpful here, showing that augmentation can hurt
+                if the dataset is tiny and the task is already noisy.
+            </li>
+            <li>
+                ResNet18 strongly outperformed AlexNet (≈91.3% vs ≈60.9% accuracy), reinforcing how much
+                architecture choice impacts performance.
+            </li>
+            <li>
+                Because the dataset is small and the labels are broad (fresh / mixed / ultraprocessed),
+                this system is a proof-of-concept rather than a reliable health tool.
+            </li>
         </ul>
         <p>
-            Because of these limitations, SmartBite AI should be viewed as a learning exercise in transfer
-            learning and model comparison, not as a real nutrition or health tool.
-        </p>
-    </section>
-
-    <section>
-        <h2>Key Takeaways & Future Work</h2>
-        <ul>
-            <li>Deep models can learn meaningful visual patterns even on a small three-class food dataset.</li>
-            <li>Hyperparameters matter: batch size, learning rate, and augmentation significantly affected accuracy.</li>
-            <li>ResNet18 strongly outperformed AlexNet on this task (≈91.3% vs ≈60.9% accuracy).</li>
-            <li>To get closer to a useful real-world system, much larger and more carefully labeled datasets would be required.</li>
-        </ul>
-        <p>
-            Future extensions could include combining image data with text from nutrition labels, trying
-            more recent architectures, and working with more granular health scores instead of just three
-            coarse categories.
+            Future work would focus on collecting more data, refining labels, combining images with
+            nutrition text, and exploring newer architectures to move closer to something that could
+            be used in real-world settings.
         </p>
     </section>
 </main>
